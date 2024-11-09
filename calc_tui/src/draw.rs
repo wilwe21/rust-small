@@ -1,3 +1,13 @@
+pub struct box {
+    childerns: Vec<_>,
+    orientation: String,
+}
+pub struct squere {
+    x: u16,
+    y: u16,
+    h: u16,
+    z: u16,
+}
 pub fn draw() {
     let frame_bg = "3";
     let frame_fg = "0";
