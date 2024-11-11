@@ -15,8 +15,9 @@ impl squere {
             w,
         }
     }
-    pub fn draw(self) {
-        print!("\x1b[48;5;{}m\x1b[38;5;{}m{}\x1b[0m",self.color,self.text_color,self.text)
+    pub fn draw(&self) {
+        let h: usize = self.h.into();
+        print!("\x1b[48;5;{}m\x1b[38;5;{}m{:^h$}\x1b[0m",self.color,self.text_color,self.text)
     }
 }
 pub struct frame {
