@@ -4,25 +4,25 @@ use serde_json::Value;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Card {
-    pub color: String,
+    pub suit: String,
     pub value: String,
     pub is_face: bool,
 }
 
 impl fmt::Display for Card {
     fn fmt(&self, f:&mut fmt::Formatter<'_>) -> fmt::Result {
-        if ["♦".to_string(), "♥".to_string()].contains(&self.color) {
-            write!(f, "\x1B[41m\x1B[97m{}{}\x1B[49m", self.color, self.value)
+        if ["♦".to_string(), "♥".to_string()].contains(&self.suit) {
+            write!(f, "\x1B[41m\x1B[97m{}{}\x1B[49m", self.suit, self.value)
         } else {
-            write!(f, "\x1B[40m\x1B[97m{}{}\x1B[49m", self.color, self.value)
+            write!(f, "\x1B[40m\x1B[97m{}{}\x1B[49m", self.suit, self.value)
         }
     }
 }
 
 impl Card {
-    pub fn new(color: &str, value: &str, is_face: bool) -> Self {
+    pub fn new(suit: &str, value: &str, is_face: bool) -> Self {
         return Self {
-            color: color.to_string(),
+            suit: suit.to_string(),
             value: value.to_string(),
             is_face,
         }
@@ -32,11 +32,11 @@ impl Card {
         let file = fs::File::open(path).expect("Wrong File");
         let json: serde_json::Value = serde_json::from_reader(file).expect("Not JSON file");
         let trim_match = ['\"', '\''];
-        let color = json.get("color").unwrap().to_string().trim_start_matches(&trim_match).trim_end_matches(&trim_match).to_string();
+        let suit = json.get("suit").unwrap().to_string().trim_start_matches(&trim_match).trim_end_matches(&trim_match).to_string();
         let value = json.get("value").unwrap().to_string().trim_start_matches(&trim_match).trim_end_matches(&trim_match).to_string();
         let is_face = json.get("is_face").unwrap().as_bool().unwrap();
         return Self {
-            color,
+            suit,
             value,
             is_face,
         }

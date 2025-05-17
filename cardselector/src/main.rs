@@ -1,9 +1,8 @@
 mod hand;
 mod cards;
-mod r#loop;
+mod makao;
 
-use crate::r#loop::gameloop;
 
 fn main() {
-    gameloop();
+    makao::gameloop();
 }
