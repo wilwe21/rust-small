@@ -7,7 +7,7 @@ use crate::cards::Card;
 use crate::hand::Hand;
 
 pub fn gameloop() {
-    let path = "/home/wilwe/.config/card/";
+    let path = "/home/wilwe/.config/card/playing/";
     let cards = Card::load_all(&path);
     let amount = 8;
     let mut dealer = Hand::new_from_vec(cards.clone(), 0);
