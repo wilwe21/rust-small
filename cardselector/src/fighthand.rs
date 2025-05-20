@@ -16,7 +16,7 @@ impl fmt::Display for FightHand {
     fn fmt(&self, f:&mut fmt::Formatter<'_>) -> fmt::Result {
         if f.alternate() {
             for card in self.cards.clone() {
-                print!("\x1b[44m\x1b[37m🮖🮖\x1b[49m ");
+                print!("\x1b[44m\x1b[37m🮖🮖🮖\x1b[49m ");
             }
             write!(f, "")
         } else {
@@ -120,11 +120,11 @@ impl FightHand {
         }
     }
 
-    pub fn round(&mut self, stack: &mut FightHand, dealer: &mut FightHand) {
+    pub fn round(&mut self, dealer: &mut FightHand) {
         for card in self.cards.clone() {
-            if fight::can_play(stack.clone(), card.clone()) {
+            if fight::can_play(card.clone()) {
                 self.remove(card.clone());
-                stack.draw(card);
+                // place
                 return;
             }
         }

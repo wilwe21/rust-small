@@ -6,9 +6,8 @@ use std::time::Duration;
 use crate::cards::Card;
 use crate::hand::Hand;
 
-pub fn gameloop() {
-    let path = "/home/wilwe/.config/card/playing/";
-    let cards = Card::load_all(&path);
+pub fn gameloop(path: &str) {
+    let cards = Card::load_all(path);
     let amount = 8;
     let mut dealer = Hand::new_from_vec(cards.clone(), 0);
     let mut hand = Hand::new(0);

@@ -29,7 +29,7 @@ impl FightCard {
         let trim_match = ['\"', '\''];
         let icon = json.get("icon").unwrap().to_string().trim_start_matches(&trim_match).trim_end_matches(&trim_match).to_string();
         let health = json.get("health").unwrap().as_u64().unwrap();
-        let damage = json.get("health").unwrap().as_u64().unwrap();
+        let damage = json.get("damage").unwrap().as_u64().unwrap();
         return Self {
             icon,
             health,
