@@ -3,11 +3,13 @@ use std::{fmt::write, ops::Index};
 
 use rand::prelude::*;
 use crate::fight;
+use crate::fightslot::FightSlot;
 
 use crate::fightcards::FightCard;
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub struct FightHand {
     pub cards: Vec<FightCard>,
+    pub slots: Vec<FightSlot>,
     pub max_size: usize,
     pub selected: usize,
 }
@@ -15,6 +17,10 @@ pub struct FightHand {
 impl fmt::Display for FightHand {
     fn fmt(&self, f:&mut fmt::Formatter<'_>) -> fmt::Result {
         if f.alternate() {
+            for slot in  self.slots.clone() {
+                print!("{} ", slot);
+            } 
+            print!("\n");
             for card in self.cards.clone() {
                 print!("\x1b[44m\x1b[37m🮖🮖🮖\x1b[49m ");
             }
@@ -30,6 +36,10 @@ impl fmt::Display for FightHand {
                 for card in self.cards.clone() {
                     print!("{} ", card);
                 }
+                print!("\n");
+                for slot in  self.slots.clone() {
+                    print!("{} ", slot);
+                } 
                 write!(f, "")
             } else {
                 if self.max_size != 0 {
@@ -38,6 +48,10 @@ impl fmt::Display for FightHand {
                 for card in self.cards.clone() {
                     print!("{} ", card);
                 }
+                print!("\n");
+                for slot in  self.slots.clone() {
+                    print!("{} ", slot);
+                } 
                 write!(f, "")
             }
         }
@@ -48,6 +62,7 @@ impl FightHand {
     pub fn new(size: usize) -> Self {
         return Self {
             cards: vec!(),
+            slots: vec!(FightSlot::new(1), FightSlot::new(2), FightSlot::new(3), FightSlot::new(4)),
             max_size: size,
             selected: 0
         }
@@ -56,6 +71,7 @@ impl FightHand {
     pub fn new_from_vec(vec: Vec<FightCard>, size: usize) -> Self {
         return Self {
             cards: vec,
+            slots: vec!(FightSlot::new(1), FightSlot::new(2), FightSlot::new(3), FightSlot::new(4)),
             max_size: size,
             selected: 0
         }
@@ -117,6 +133,16 @@ impl FightHand {
             self.cards.last().unwrap().to_owned()
         } else {
             FightCard::new("null", 0, 0)
+        }
+    }
+
+    pub fn move_to_slot(&mut self, slot: usize) {
+        if slot <= self.slots.len() {
+            let card = self.cards[self.selected.clone()-1].clone();
+            let changed = self.slots[slot-1].change_card(card.clone());
+            if changed {
+                self.remove(card);
+            }
         }
     }
 

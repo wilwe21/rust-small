@@ -2,6 +2,7 @@ mod hand;
 mod cards;
 mod fightcards;
 mod fighthand;
+mod fightslot;
 mod fight;
 mod makao;
 

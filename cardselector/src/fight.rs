@@ -34,20 +34,18 @@ pub fn gameloop() {
             } else if ["draw".to_string(), "d".to_string()].contains(&user_input.to_lowercase()) {
                 players[0].draw_from_hand(&mut dealer, true);
                 round += 1;
-            } else if ["play".to_string(), "p".to_string()].contains(&user_input.to_lowercase()) {
+            } else if ["1".to_string(), "2".to_string(), "3".to_string(), "4".to_string()].contains(&user_input.to_lowercase()) {
                 if players[0].selected != 0 {
-                    let car = players[0].cards.index(players[0].selected-1).clone();
-                    if can_play(car.clone()) {
-                        // place
-                        players[0].remove(car.clone());
-                        if players[0].selected > players[0].cards.len() {
-                            players[0].move_left();
-                        }
-                        if players[0].cards.len() < 1 {
-                            println!("You won");
-                            break;
-                        }
-                        round += 1;
+                    match user_input.as_str() {
+                        "1" => players[0].move_to_slot(1),
+                        "2" => players[0].move_to_slot(2),
+                        "3" => players[0].move_to_slot(3),
+                        "4" => players[0].move_to_slot(4),
+                        _ => {}
+                    }
+                    
+                    if players[0].selected > players[0].cards.len() {
+                        players[0].move_left();
                     }
                 }
             } else if ["q".to_string(), ":q".to_string(), "exit".to_string()].contains(&user_input) {
