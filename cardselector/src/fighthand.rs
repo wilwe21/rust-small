@@ -12,6 +12,7 @@ pub struct FightHand {
     pub slots: Vec<FightSlot>,
     pub max_size: usize,
     pub selected: usize,
+    pub health: usize
 }
 
 impl fmt::Display for FightHand {
@@ -24,7 +25,7 @@ impl fmt::Display for FightHand {
             for card in self.cards.clone() {
                 print!("\x1b[44m\x1b[37m🮖🮖🮖\x1b[49m ");
             }
-            write!(f, "")
+            write!(f, "{}", self.health)
         } else {
             if self.selected != 0 {
                 let card = self.cards.index(self.selected-1);
@@ -52,7 +53,7 @@ impl fmt::Display for FightHand {
                 for slot in  self.slots.clone() {
                     print!("{} ", slot);
                 } 
-                write!(f, "")
+                write!(f, "{}", self.health)
             }
         }
     }
@@ -64,7 +65,8 @@ impl FightHand {
             cards: vec!(),
             slots: vec!(FightSlot::new(1), FightSlot::new(2), FightSlot::new(3), FightSlot::new(4)),
             max_size: size,
-            selected: 0
+            selected: 0,
+            health: 10
         }
     }
 
@@ -73,7 +75,8 @@ impl FightHand {
             cards: vec,
             slots: vec!(FightSlot::new(1), FightSlot::new(2), FightSlot::new(3), FightSlot::new(4)),
             max_size: size,
-            selected: 0
+            selected: 0,
+            health: 10
         }
     }
 
