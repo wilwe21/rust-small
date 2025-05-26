@@ -21,11 +21,11 @@ impl fmt::Display for FightHand {
             for slot in  self.slots.clone() {
                 print!("{} ", slot);
             } 
-            print!("\n");
+            print!(" {}\n", self.health);
             for card in self.cards.clone() {
                 print!("\x1b[44m\x1b[37m🮖🮖🮖\x1b[49m ");
             }
-            write!(f, "{}", self.health)
+            write!(f, "")
         } else {
             if self.selected != 0 {
                 let card = self.cards.index(self.selected-1);
@@ -49,11 +49,11 @@ impl fmt::Display for FightHand {
                 for card in self.cards.clone() {
                     print!("{} ", card);
                 }
-                print!("\n");
+                print!(" {}\n", self.health);
                 for slot in  self.slots.clone() {
                     print!("{} ", slot);
                 } 
-                write!(f, "{}", self.health)
+                write!(f, "")
             }
         }
     }
